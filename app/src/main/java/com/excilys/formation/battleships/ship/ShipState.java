@@ -27,9 +27,11 @@ public class ShipState {
 
 
     public void addStrike(){
-        struck = true;
-        if(isShip()) {
-            ship.strikeCount++;
+        if(!struck) {
+            struck = true;
+            if (isShip()) {
+                ship.strikeCount++;
+            }
         }
     }
     public String toString(){

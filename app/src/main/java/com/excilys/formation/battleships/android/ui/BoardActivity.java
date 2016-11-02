@@ -87,6 +87,7 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
         mPlayerTurn = false;
         // check if that place was already hit
         if(mOpponentBoard.alreadyHit(x, y)){
+            showMessage("You already hit this block!");
             // trying to hit something which was already hit before
             // do nothing and let player try again
             mPlayerTurn = true;

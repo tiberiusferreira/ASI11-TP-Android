@@ -24,7 +24,7 @@ public enum Hit {
                 return hit;
             }
         }
-        throw new NoSuchElementException("no enum for value " + value);
+        throw new NoSuchElementException("No enum for value " + value);
     }
 
     public String toString() {

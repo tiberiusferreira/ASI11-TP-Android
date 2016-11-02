@@ -8,18 +8,18 @@ public final class InputHelper {
 
 	private InputHelper() {}
 
-	public static class ShipInput {
+	static class ShipInput {
 		public String orientation;
 		public int x;
 		public int y;
 	}
 
-	public static class CoordInput {
+	static class CoordInput {
 		public int x;
 		public int y;
 	}
 
-	public static ShipInput readShipInput() {
+	static ShipInput readShipInput() {
 		@SuppressWarnings("resource")
 		Scanner sin = new Scanner(System.in);
 		ShipInput res = new ShipInput();
@@ -50,7 +50,7 @@ public final class InputHelper {
 		return res;
 	}
 
-	public static CoordInput readCoordInput() {
+	static CoordInput readCoordInput() {
 		@SuppressWarnings("resource")
 		Scanner sin = new Scanner(System.in);
 		CoordInput res = new CoordInput();

@@ -24,8 +24,8 @@ public class DrawableDestroyer extends Destroyer implements DrawableShip {
     }
     static final Map<Orientation, Integer> DRAWABLES = new HashMap<>();
     static {
-        // le code à l'intérieur de ce bloc sera éxecuté une seule fois au chargement de la classe Example.
-        // les opérations effectuées sont donc partagées par toutes les instances de Example.
+        // The code inside here will be executed just once when the class is loaded
+        // So all the changes here are shared with the "brother" classes
         DRAWABLES.put(Orientation.NORTH,  R.drawable.destroyer_n);
         DRAWABLES.put(Orientation.SOUTH,  R.drawable.destroyer_s);
         DRAWABLES.put(Orientation.WEST,  R.drawable.destroyer_w);

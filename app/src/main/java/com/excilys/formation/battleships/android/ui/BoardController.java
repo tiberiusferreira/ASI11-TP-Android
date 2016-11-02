@@ -46,7 +46,6 @@ public class BoardController implements IBoard {
 
     @Override
     public Hit sendHit(int x, int y) {
-
         return mBoard.sendHit(x,y);
     }
 
@@ -55,14 +54,14 @@ public class BoardController implements IBoard {
         return 10;
     }
 
-    @Override
     /**
-     * Attempts to put a ship in pos x y
+     * Attempts to put a ship in pos x y on the board and GUI board
      * @param ship the ship to be put
      * @param x the x position
      * @param y the y position
      * @throws IllegalArgumentException
      */
+    @Override
     public int putShip(AbstractShip ship, int x, int y) {
         if ((!(ship instanceof DrawableShip))) {
             throw new IllegalArgumentException("Cannot put a Ship that does not implement DrawableShip.");
@@ -70,6 +69,7 @@ public class BoardController implements IBoard {
         if(mBoard.putShip(ship, x, y) != 1){
             throw new IllegalArgumentException("Cannot put a Ship there.");
         }
+        // Align GUI representation with actual ship position
         if ( ship.getOrientation() == AbstractShip.Orientation.NORTH ){
             y = y - (ship.getLength() - 1);
         }else if(ship.getOrientation() == AbstractShip.Orientation.WEST ){
@@ -77,13 +77,13 @@ public class BoardController implements IBoard {
         }
         System.out.println("Ship length = " + ship.getLength() );
         System.out.println("Putting ship at pos : x = " + x + " y= " + y );
+        // Put ship in GUI board
         mShipsFragment.putDrawable(((DrawableShip) ship).getDrawable(), x, y);
         return 0;
     }
 
     @Override
     public boolean hasShip(int x, int y) {
-
         return mBoard.hasShip(x,y);
     }
 

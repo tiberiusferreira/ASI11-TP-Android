@@ -9,11 +9,11 @@ import java.util.List;
 
 public class Player {
     protected Board board;
-    protected Board opponentBoard;
+    private Board opponentBoard;
     public int destroyedCount;
     protected AbstractShip[] ships;
     public boolean lose;
-    String name;
+    private String name;
 
     public Player(String name, Board board, Board opponentBoard, List<AbstractShip> ships) {
         this.name = name;
@@ -72,9 +72,10 @@ public class Player {
         } while (!done);
     }
     /**
-     * Sends a hit at the coords given
-     * @param coords with
-     * @return hit which contains the information about the sucess of the shot
+     * Asks the players for coordinates and sends an Hit on opponents table on those coordinates
+     * @param coords Variable which should be an int[2] and which will be populated with the
+     * coordinates of where the shot was sent
+     * @return hit which contains the information about the success of the shot
      */
     public Hit sendHit(int[] coords) {
         boolean done = false;

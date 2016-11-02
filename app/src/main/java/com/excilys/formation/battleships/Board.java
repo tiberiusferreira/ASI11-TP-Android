@@ -9,11 +9,13 @@ import java.util.List;
  */
 public class Board implements IBoard{
     private int size;
-    Boolean[][] frappes;
-    ShipState[][] navire;
-    Board(String name, int size){
-        if (size>26){
-            System.out.println("Tableau trop grand! Limit = 26");
+    private Boolean[][] frappes;
+    private ShipState[][] navire;
+    private String name;
+    private Board(String name, int size){
+        this.name = name;
+        if (size>20){
+            System.out.println("Tableau trop grand! Limit = 20");
         }else{
             this.size = size;
         }
@@ -26,10 +28,17 @@ public class Board implements IBoard{
         }
     }
 
+    String getName(){
+        return name;
+    }
+
     public Board(String name){
         this(name, 10);
     }
 
+    /**
+     Outputs the tables to the screen
+     */
     void printTableau(){
         System.out.print("Navires:");
         for (int i=0; i<1 + 2*size; i++) {
@@ -86,6 +95,12 @@ public class Board implements IBoard{
         return (navire[x][y].isShip());
     }
 
+
+    /**
+     @param hit True if hit something, false if missed
+     @param x The coordinate x of the hit
+     @param y The coordinate y of the hit
+     */
     @Override
     public void setHit(boolean hit, int x, int y) {
         if (!isInsideGrid(x, y)){
@@ -95,6 +110,12 @@ public class Board implements IBoard{
         frappes[x][y] = hit;
     }
 
+
+    /**
+     @param x The coordinate x of the hit
+     @param y The coordinate y of the hit
+     @return True if there is a hit (!=miss) in the coordinates, false if there is not
+     */
     @Override
     public Boolean getHit(int x, int y) {
         if (!isInsideGrid(x, y)){
@@ -104,6 +125,12 @@ public class Board implements IBoard{
         return frappes[x][y];
     }
 
+
+    /**
+     @param x The coordinate x of the hit
+     @param y The coordinate y of the hit
+     @return A Hit representing what was hit at (x, y)
+     */
     public Hit sendHit(int x, int y){
         if (!isInsideGrid(x, y)){
             System.out.println("Invalid location: x = " + x + " y= " + y);
@@ -132,6 +159,12 @@ public class Board implements IBoard{
     }
 
 
+
+    /**
+     @param ship The ship to be put
+     @param x The coordinate x where to put the ship
+     @param y The coordinate y where to put the ship
+     */
     @Override
     public int putShip(AbstractShip ship, int x, int y) {
         if (!isInsideGrid(x, y)){
@@ -174,6 +207,11 @@ public class Board implements IBoard{
         return 1;
     }
 
+    /**
+     @param x Coordinate x
+     @param y Coordinate y
+     @return True if the coordinates are inside the game table, false otherwise
+     */
     private boolean isInsideGrid(int x, int y){
         return !((x < 0 || y < 0) || ((x > size - 1 || y > size - 1)));
     }

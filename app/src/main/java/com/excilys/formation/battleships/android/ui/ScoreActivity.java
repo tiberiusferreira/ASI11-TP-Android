@@ -25,10 +25,8 @@ public class ScoreActivity extends AppCompatActivity {
 
         int winVisible = View.VISIBLE, loseVisible = View.VISIBLE;
         if (win) {
-            System.out.println("IN WIN!!!!");
             loseVisible = View.GONE;
         } else {
-            System.out.println("LOSTTTT!!!!");
             winVisible = View.GONE;
         }
 

@@ -73,7 +73,7 @@ public class BattleShipsAI implements Serializable {
      * @param coords array must be of size 2. Will hold the coord of the send hit.
      * @return the status of the hit.
      */
-    public Hit sendHit(int[] coords) {
+    Hit sendHit(int[] coords) {
 
         int res[] = null;
         if (coords == null || coords.length < 2) {

@@ -25,6 +25,7 @@ public class ShipState {
         return struck;
     }
 
+
     public void addStrike(){
         struck = true;
         if(isShip()) {

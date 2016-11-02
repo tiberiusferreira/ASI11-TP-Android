@@ -15,6 +15,11 @@ public class PlayerNameActivity extends AppCompatActivity {
     String final_name;
     private TextView.OnEditorActionListener mEditorListener = new CustomTVListener();
 
+
+    /**
+     * Sets the view to get the players name and sets the listeners
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,12 +29,14 @@ public class PlayerNameActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Gets the players name and starts initiates and starts the game
+     */
     private class CustomTVListener implements TextView.OnEditorActionListener {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 final_name = v.getText().toString();
                 BattleShipsApplication.getGame().init(final_name);
-
                 return true;
             }
         }

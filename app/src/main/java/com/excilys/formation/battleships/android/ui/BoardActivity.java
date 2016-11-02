@@ -24,21 +24,27 @@ import battleships.formation.excilys.com.battleships.R;
 public class BoardActivity extends AppCompatActivity implements BoardGridFragment.BoardGridFragmentListener{
     private static final String TAG = BoardActivity.class.getSimpleName();
 
+    /**
+     * Callback for when the player touches the board
+     * @param id What was touched
+     * @param x the x position of the touch
+     * @param y the y position of the touch
+     */
     @Override
     public void onTileClick(int id, int x, int y) {
-        if(id == BoardController.HITS_FRAGMENT){
+        if(id == BoardController.HITS_FRAGMENT && mPlayerTurn){
             doPlayerTurn(x,y);
         }
     }
 
+    // Time to wait in between turns
     private static class Default {
-        private static final int TURN_DELAY = 1000; // ms
+        private static final int TURN_DELAY = 600; // ms
     }
 
     /* ***
      * Widgets
      */
-    /** contains BoardFragments to display ships & hits grids */
     private CustomViewPager mViewPager;
     private TextView mInstructionTextView;
 
@@ -90,8 +96,10 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
             mPlayerTurn = true;
             if (updateScore()) {
                 gotoScoreActivity();
+
             }
         } else {
+            // Sleep before doing opponents turn so the player can see what is going on
             new AsyncTask<Void, String, Boolean>() {
                 @Override
                 protected Boolean doInBackground(Void... params) {
@@ -112,16 +120,19 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
 
 
     private void StartOpponentTurn(){
+        // Show the ships view so player can see where the opponent hit
         mViewPager.setCurrentItem(BoardController.SHIPS_FRAGMENT);
+        // Do not let player escape :)
         mViewPager.setEnableSwipe(false);
         doOpponentTurn();
     }
 
 
     private void doOpponentTurn() {
+        // Here it could be very elaborated, with complicated strategies, so better do it
+        // in another thread, also there is a sleep in there so the player can see what's going on
         new AsyncTask<Void, String, Boolean>() {
             private String DISPLAY_TEXT = "0", DISPLAY_HIT = "1";
-
             @Override
             protected Boolean doInBackground(Void... params) {
                 Hit hit;
@@ -136,7 +147,6 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
                     strike = hit != Hit.MISS;
                     publishProgress(DISPLAY_TEXT, makeHitMessage(true, coordinate, hit));
                     publishProgress(DISPLAY_HIT, String.valueOf(strike), String.valueOf(coordinate[0]), String.valueOf(coordinate[1]));
-
                     sleep(Default.TURN_DELAY);
                 } while(strike && !mDone);
                 return mDone;
@@ -144,7 +154,9 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
 
             @Override
             protected void onPostExecute(Boolean done) {
+                // Check if somebody has won
                 if (!updateScore()) {
+                    // Give player the control and go back to the activity where he can play
                     mViewPager.setEnableSwipe(true);
                     mViewPager.setCurrentItem(BoardController.HITS_FRAGMENT);
                     mPlayerTurn = true;
@@ -169,8 +181,8 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
     }
 
     private void gotoScoreActivity() {
+        // End game and show who won
         Intent intent = new Intent(this, ScoreActivity.class);
-
         intent.putExtra(ScoreActivity.Extra.WIN, (mOpponent.lose));
         startActivity(intent);
     }
@@ -181,7 +193,7 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

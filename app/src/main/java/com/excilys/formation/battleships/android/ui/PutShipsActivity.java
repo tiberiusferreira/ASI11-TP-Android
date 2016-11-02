@@ -74,9 +74,14 @@ public class PutShipsActivity extends AppCompatActivity implements BoardGridFrag
         updateNextShipNameToDisplay();
     }
 
+    /**
+     * Call the Board putShip method and if successful update the GUI to reflect it
+     * When done go to the BoardActivity to begin actually playing
+     * @param boardId the players board where to put ships at
+     * @param x the x position where to put ships
+     * @param y the y position where to put ships
+     */
     @Override
-    // Call the Board putShip method and if sucessful update the GUI to reflect it
-    // When done go to the BoardActivity to begin actually playing
     public void onTileClick(int boardId, int x, int y) {
         String msg;
         msg = String.format(Locale.US, "Trying to put ship at : (x = %d, y = %d)", x, y);
@@ -125,6 +130,9 @@ public class PutShipsActivity extends AppCompatActivity implements BoardGridFrag
         }
     }
 
+    /**
+     * Listener which updates the ship orientation when the orientation RadioButton is changed
+     */
     private class ShipOrientationChangeListener implements RadioGroup.OnCheckedChangeListener {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {

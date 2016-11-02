@@ -82,12 +82,12 @@ public class Player {
         Hit hit = null;
         do {
             InputHelper.CoordInput hitInput = InputHelper.readCoordInput();
-            hit = opponentBoard.sendHit(hitInput.x, hitInput.y);
-            coords[0] = hitInput.x;
-            coords[1] = hitInput.y;
-            if (hit!=null){
-                done=true;
-            }
+                hit = opponentBoard.sendHit(hitInput.x, hitInput.y);
+                coords[0] = hitInput.x;
+                coords[1] = hitInput.y;
+                if (hit != null) {
+                    done = true;
+                }
         } while (!done);
         return hit;
     }

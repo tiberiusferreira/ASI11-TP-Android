@@ -85,8 +85,16 @@ public class BoardActivity extends AppCompatActivity implements BoardGridFragmen
     // Here the human player has selected an X and Y point to hit from the opponent board
     private void doPlayerTurn(int x, int y) {
         mPlayerTurn = false;
+        // check if that place was already hit
+        if(mOpponentBoard.alreadyHit(x, y)){
+            // trying to hit something which was already hit before
+            // do nothing and let player try again
+            mPlayerTurn = true;
+            return;
+        }
         // send the Hit to the opponent board and get the result
         Hit hit = mOpponentBoard.sendHit(x, y);
+
         boolean strike = hit != Hit.MISS;
         // update the board which shows the hits already sent
         mBoardController.setHit(strike, x, y);

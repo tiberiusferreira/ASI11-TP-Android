@@ -4,8 +4,8 @@ package com.excilys.formation.battleships.ship;
  * Created by tiberiodarferreira on 23/09/2016.
  */
 public class ShipState {
-    AbstractShip ship;
-    boolean struck = false;
+    private AbstractShip ship;
+    private boolean struck = false;
     public ShipState(AbstractShip ship){
         this.ship = ship;
     }
@@ -24,8 +24,10 @@ public class ShipState {
     public boolean isStruck(){
         return struck;
     }
-
-
+    /**
+     Adds a strike to the ship.
+     It is used in order to track if the ship has sunk or not.
+     */
     public void addStrike(){
         if(!struck) {
             struck = true;
@@ -41,6 +43,9 @@ public class ShipState {
             return ".";
         }
     }
+    /**
+     This is useful to populate the table representing the ships without having to convert a String to char each time
+     */
     public char getShipAsChar(){
         if (ship==null) {
             return '.';

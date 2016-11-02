@@ -206,6 +206,18 @@ public class Board implements IBoard{
         printTableau();
         return 1;
     }
+    /**
+     @param x Coordinate x
+     @param y Coordinate y
+     @return True if the coordinates are of a position already hit
+     */
+    public boolean alreadyHit(int x, int y){
+        if (!isInsideGrid(x, y)){
+            System.out.println("Invalid location: x = " + x + " y= " + y);
+            return false;
+        }
+        return navire[x][y].isStruck();
+    }
 
     /**
      @param x Coordinate x
